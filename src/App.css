@@ -1,0 +1,43 @@
+nav {
+    background-color: chocolate;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+}
+
+nav a,
+nav a:visited {
+    color: white;
+    font-weight: bold;
+}
+
+a {
+    color: chocolate;
+    text-transform: capitalize;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 300px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+section {
+    margin: 24px 16px;
+}
+
+article {
+    border: 1px solid #ededed;
+    border-radius: 4px;
+    margin: 46px;
+    padding: 24px;
+}
+
+article h1,
+article p {
+    text-transform: capitalize;
+}
