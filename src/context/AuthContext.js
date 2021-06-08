@@ -75,7 +75,8 @@ function AuthContextProvider({children}) {
         console.log('AuthContext.js, useEffect gestart')
 
         const token =localStorage.getItem('token');
-        if(token !== null && authState.user === null){
+        // if(token !== null && authState.user === null){
+        if(token !== null){
 
             console.log('AuthContext.js, Token afvragen ER IS EEN TOKEN')
             fetchUserData(token);
@@ -97,8 +98,13 @@ function AuthContextProvider({children}) {
 
 
     //inlogfunctie
+    // jwtToken nodig om daaruit de user ID te halen
+    //jwtToken in de localStorage zetten
+    //gebruikersdata ophalen
+    //die data gebruiken om de context te vullen.
     // de jwtToken (anyName), wordt meegegeven vanuit de signin.js page
     // vanuit:  login(response.data.accessToken)
+    //dan doorlinken naar de profiel pagina (of andere zoals home ed)
     async function loginFunction(jwtToken) {
 
         //jwt token in de local storage
@@ -118,6 +124,13 @@ function AuthContextProvider({children}) {
 
         //leeghalen van de localstorage (localStorage.clear())
         // en de user in de context weer op nul zetten  : les 10 02:48:00
+
+        localStorage.clear();
+        setAuthState({
+            user: null,
+            status: 'done',
+        });
+
         console.log('Logout!')
     }
 
