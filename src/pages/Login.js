@@ -8,7 +8,7 @@ import {AuthContext} from "../context/AuthContext";
 
 
 
-function Login({toggleAuthCustomer,toggleAuthUser, toggleAuthAdmin}) {
+function Login() {
     const {login} = useContext(AuthContext);
     const {handleSubmit, register} = useForm();
     const [logInSucces, toggleLogInSucces] = useState(false)

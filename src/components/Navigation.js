@@ -1,14 +1,42 @@
-import React, {useContext} from 'react';
+import React, {useContext,useState} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
 import {AuthContext} from "../context/AuthContext";
 
-function Navigation({isAuthUser,isAuthCustomer,isAuthAdmin}) {
+
+
+
+function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
     const history = useHistory();
+    const alles=useContext(AuthContext);
+
+    console.log("alles: ",alles)
 
     console.log("NAVIGATIONPAGE")
     console.log("isAuthCustomer: ", isAuthCustomer)
     console.log("isAuthUser: ", isAuthUser)
     console.log("isAuthAdmin: ", isAuthAdmin)
+
+
+    function signOut() {
+
+        localStorage.clear();
+        isAuthAdmin = false;
+        isAuthUser = false;
+        isAuthCustomer = false;
+        console.log("isAuthAdmin: ",isAuthAdmin)
+        // setAuthState({
+        //     ...authState,
+        //     user: {
+        //         username: response.data.username,
+        //         email: response.data.email,
+        //         role: roleTest,
+        //     },
+        //     status: 'done',
+        //     loginStatus: true,
+        // });
+       history.push("/login")
+
+    }
 
 
     return (
@@ -19,7 +47,6 @@ function Navigation({isAuthUser,isAuthCustomer,isAuthAdmin}) {
                         Home
                     </NavLink>
                 </li>
-                {/*Is de gebruiker ingelogd? Laat dan de blogposts en uitlog knop zien, en anders alleen de login knop */}
 
 
                 {((isAuthCustomer === false) && (isAuthUser === false) && (isAuthAdmin === false)) &&
@@ -56,6 +83,7 @@ function Navigation({isAuthUser,isAuthCustomer,isAuthAdmin}) {
 
                 {((isAuthCustomer === false) && (isAuthUser === false) && (isAuthAdmin === true)) &&
                 <>
+
                     <li>
                         <NavLink to="/admin1">
                             admin1
@@ -68,11 +96,11 @@ function Navigation({isAuthUser,isAuthCustomer,isAuthAdmin}) {
                 {((isAuthCustomer === true) || (isAuthUser === true) || (isAuthAdmin === true)) &&
                 <>
 
-                    {/*<li>*/}
-                    {/*    <button type="button" onClick={signOut}>*/}
-                    {/*        Uitloggen*/}
-                    {/*    </button>*/}
-                    {/*</li>*/}
+                    <li>
+                        <button type="button" onClick={signOut}>
+                            Uitloggen
+                        </button>
+                    </li>
                 </>
                 }
 

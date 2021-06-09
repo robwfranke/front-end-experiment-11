@@ -24,13 +24,15 @@ function PrivateRoute({children,isAuthCustomer, isAuthUser, isAuthAdmin, ...rest
 
 function App(isAuthenticatedCustomer,toggleIsAuthenticatedCustomer,isAuthenticatedUser,toggleIsAuthenticatedUser,isAuthenticatedAdmin,toggleIsAuthenticatedAdmin) {
 
-    let role = "empty"
-    const totalAuth = useContext(AuthContext);
-    if (totalAuth.user !== null) {
-        role = totalAuth.user.role;
-    }
-    console.log("alles: ", totalAuth)
-    console.log("alles: ", totalAuth)
+    // let role = "empty"
+    // const totalAuth = useContext(AuthContext);
+    // if (totalAuth.user !== null) {
+    //     role = totalAuth.user.role;
+    // }
+    // console.log("alles: ", totalAuth)
+    // console.log("alles: ", totalAuth)
+
+    const {role}= useContext(AuthContext);
     console.log("Navigation, role uit authcontext: ", role)
     let isAuthCustomer = false;
     let isAuthUser = false;
@@ -45,9 +47,9 @@ function App(isAuthenticatedCustomer,toggleIsAuthenticatedCustomer,isAuthenticat
   return (
       <div>
         <Navigation
-           isAuthCustomer={isAuthAdmin}
+           isAuthCustomer={ isAuthCustomer}
            isAuthUser={isAuthUser}
-        isAuthAdmin={isAuthCustomer}
+        isAuthAdmin={isAuthAdmin}
 
         />
 

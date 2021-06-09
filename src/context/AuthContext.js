@@ -94,10 +94,11 @@ function AuthContextProvider({children}) {
                 user: {
                     username: response.data.username,
                     email: response.data.email,
-                    role: roleTest,
+
                 },
                 status: 'done',
                 loginStatus: true,
+                role: roleTest,
             });
             console.log("na setAuthState")
             console.log("AuthState na inloggen", authState)
@@ -156,6 +157,7 @@ function AuthContextProvider({children}) {
             setAuthState({
                 user: null,
                 status: 'done',
+                role:"empty"
 
             });
         }
