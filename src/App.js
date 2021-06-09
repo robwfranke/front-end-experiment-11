@@ -40,7 +40,11 @@ function App(isAuthenticatedCustomer,toggleIsAuthenticatedCustomer,isAuthenticat
 
     if (role=="ADMIN"){isAuthAdmin = true}
     if (role=="COMPANY_USER"){isAuthUser = true}
-    if (role=="Customer"){isAuthCustomer = true}
+    if (role=="CUSTOMER"){isAuthCustomer = true}
+
+    console.log("APP.js, ADMIN: ", isAuthAdmin)
+    console.log("APP.js, COMPANY_USER: ", isAuthUser)
+    console.log("APP.js, CUSTOMER: ", isAuthCustomer)
 
 
 
