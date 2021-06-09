@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Route, Switch, Redirect} from 'react-router-dom';
 import './App.css';
 import Overview from './pages/Overview';
@@ -8,6 +8,9 @@ import BlogPost from './pages/BlogPost';
 import Navigation from './components/Navigation';
 import Admin1 from "./pages/Admin1";
 import Customer1 from "./pages/Customer1";
+import {AuthContext} from "./context/AuthContext";
+
+
 
 function PrivateRoute({children,isAuthCustomer, isAuthUser, isAuthAdmin, ...rest}) {
   // omdat we nog steeds alle mogelijke properties zoals exact etc. op Route willen zetten, kunnen we met de ...rest operator zeggen:
@@ -21,17 +24,31 @@ function PrivateRoute({children,isAuthCustomer, isAuthUser, isAuthAdmin, ...rest
 
 function App(isAuthenticatedCustomer,toggleIsAuthenticatedCustomer,isAuthenticatedUser,toggleIsAuthenticatedUser,isAuthenticatedAdmin,toggleIsAuthenticatedAdmin) {
 
+    let role = "empty"
+    const totalAuth = useContext(AuthContext);
+    if (totalAuth.user !== null) {
+        role = totalAuth.user.role;
+    }
+    console.log("alles: ", totalAuth)
+    console.log("alles: ", totalAuth)
+    console.log("Navigation, role uit authcontext: ", role)
+    let isAuthCustomer = false;
+    let isAuthUser = false;
+    let isAuthAdmin = false;
+
+    if (role=="ADMIN"){isAuthAdmin = true}
+    if (role=="COMPANY_USER"){isAuthUser = true}
+    if (role=="Customer"){isAuthCustomer = true}
+
+
 
   return (
       <div>
         <Navigation
-            isAuthCustomer={isAuthenticatedCustomer}
-            isAuthUser={isAuthenticatedUser}
-            isAuthAdmin={isAuthenticatedAdmin}
+           isAuthCustomer={isAuthAdmin}
+           isAuthUser={isAuthUser}
+        isAuthAdmin={isAuthCustomer}
 
-            toggleAuthCustomer={toggleIsAuthenticatedCustomer}
-            toggleAuthUser={toggleIsAuthenticatedUser}
-            toggleAuthAdmin={toggleIsAuthenticatedAdmin}
         />
 
 
@@ -41,23 +58,21 @@ function App(isAuthenticatedCustomer,toggleIsAuthenticatedCustomer,isAuthenticat
           </Route>
 
           <Route path="/login">
-            <Login toggleAuthCustomer={toggleIsAuthenticatedCustomer}
-                   toggleAuthUser={toggleIsAuthenticatedUser}
-                   toggleAuthAdmin={toggleIsAuthenticatedAdmin}/>
+                          <Login />
           </Route>
 
-          <PrivateRoute exact path="/customer1" isAuthCustomer={isAuthenticatedCustomer}>
+          <PrivateRoute exact path="/customer1" isAuthCustomer={isAuthCustomer}>
             <Customer1/>
           </PrivateRoute>
 
-          <PrivateRoute exact path="/blogposts" isAuthUser={isAuthenticatedUser}>
+          <PrivateRoute exact path="/blogposts" isAuthUser={isAuthUser}>
             <Overview/>
           </PrivateRoute>
-          <PrivateRoute exact path="/blog/:id" isAuthUser={isAuthenticatedUser}>
+          <PrivateRoute exact path="/blog/:id" isAuthUser={isAuthUser}>
             <BlogPost/>
           </PrivateRoute>
 
-          <PrivateRoute exact path="/admin1" isAuthAdmin={isAuthenticatedAdmin}>
+          <PrivateRoute exact path="/admin1" isAuthAdmin={isAuthAdmin}>
             <Admin1/>
           </PrivateRoute>
 

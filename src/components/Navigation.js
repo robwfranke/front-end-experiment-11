@@ -2,37 +2,8 @@ import React, {useContext} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
 import {AuthContext} from "../context/AuthContext";
 
-function Navigation({}) {
+function Navigation({isAuthUser,isAuthCustomer,isAuthAdmin}) {
     const history = useHistory();
-
-    // function signOut() {
-    //     toggleAuthCustomer(false);
-    //     toggleAuthUser(false);
-    //     toggleAuthAdmin(false);
-    //
-    //     history.push('/')
-    // }
-
-    // const {role} = useContext(AuthContext);
-    let role = "empty"
-    const alles = useContext(AuthContext);
-    if (alles.user !== null) {
-        role = alles.user.role;
-    }
-    console.log("alles: ", alles)
-
-
-    console.log("Navigation, role uit authcontext: ", role)
-
-    let isAuthCustomer = false;
-    let isAuthUser = false;
-    let isAuthAdmin = false;
-
-
-    if (role=="ADMIN"){isAuthAdmin = true}
-    if (role=="COMPANY_USER"){isAuthUser = true}
-    if (role=="Customer"){isAuthCustomer = true}
-
 
     console.log("NAVIGATIONPAGE")
     console.log("isAuthCustomer: ", isAuthCustomer)
