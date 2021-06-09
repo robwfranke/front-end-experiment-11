@@ -15,7 +15,7 @@ function Login({toggleAuthCustomer,toggleAuthUser, toggleAuthAdmin}) {
     const [error, setError] = useState("");
     const history = useHistory();
 
-    console.log(",jhzxbccccc");
+    console.log("LOGIN.js");
 
     async function onSubmit(data){
         console.log("Login Page, data:  ",data)  ;
@@ -41,6 +41,8 @@ function Login({toggleAuthCustomer,toggleAuthUser, toggleAuthAdmin}) {
             //hier wordt functie login uit AuthContext aangeroepen.
             // vervolgens wordt de accesToken uit de response  gehaald, waardoor de login functie kan starten in AuthContext
             login(response.data.jwt);
+            // toggleLogInSucces(true);
+            // history.push("/home")
 
 
 

@@ -43,8 +43,11 @@ function AuthContextProvider({children}) {
             })
             //check wat je binnen krijgt
 
+            console.log("response:",response)
+
             console.log("Data binnengehaald!")
             console.log('AuthContext AA', response);
+            console.log("AuthorityRole 1", response.data.authorities[0].authorityRole)
 
             setAuthState({
                 ...authState,
@@ -52,9 +55,12 @@ function AuthContextProvider({children}) {
                     username: response.data.username,
                     email: response.data.email,
                     // authorityRole: role,
-                },
+                                    },
                 status: 'done',
+                loginStatus: true,
             });
+            console.log("na setAuthState")
+            console.log("AuthState na inloggen", authState)
 
 
         } catch (e) {
@@ -64,6 +70,7 @@ function AuthContextProvider({children}) {
             setAuthState({
                 user: null,
                 status: 'done',
+                loginStatus: false,
             });
 
 
@@ -124,7 +131,7 @@ function AuthContextProvider({children}) {
 
         // gebruikersdata ophalen
         fetchUserData(jwtToken);
-        history.push('/home')
+        // history.push('/')
 
     }
 
@@ -136,13 +143,13 @@ function AuthContextProvider({children}) {
         //leeghalen van de localstorage (localStorage.clear())
         // en de user in de context weer op nul zetten  : les 10 02:48:00
 
-        localStorage.clear();
-        setAuthState({
-            user: null,
-            status: 'done',
-        });
-
-        console.log('Logout!')
+        // localStorage.clear();
+        // setAuthState({
+        //     user: null,
+        //     status: 'done',
+        // });
+        //
+        // console.log('Logout!')
     }
 
 
