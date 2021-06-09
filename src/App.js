@@ -19,11 +19,8 @@ function PrivateRoute({children,isAuthCustomer, isAuthUser, isAuthAdmin, ...rest
   )
 }
 
-function App() {
-  // We houden in de state bij of iemand is "ingelogd" (simpele versie)
-  const [isAuthenticatedCustomer, toggleIsAuthenticatedCustomer] = useState(false);
-  const [isAuthenticatedUser, toggleIsAuthenticatedUser] = useState(false);
-  const [isAuthenticatedAdmin, toggleIsAuthenticatedAdmin] = useState(false);
+function App(isAuthenticatedCustomer,toggleIsAuthenticatedCustomer,isAuthenticatedUser,toggleIsAuthenticatedUser,isAuthenticatedAdmin,toggleIsAuthenticatedAdmin) {
+
 
   return (
       <div>

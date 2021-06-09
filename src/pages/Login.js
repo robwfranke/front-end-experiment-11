@@ -15,7 +15,7 @@ function Login({toggleAuthCustomer,toggleAuthUser, toggleAuthAdmin}) {
     const [error, setError] = useState("");
     const history = useHistory();
 
-    console.log("LOGIN.js");
+
 
     async function onSubmit(data){
         console.log("Login Page, data:  ",data)  ;
@@ -25,6 +25,7 @@ function Login({toggleAuthCustomer,toggleAuthUser, toggleAuthAdmin}) {
             console.log("data:  ",data)
             console.log("userNameInput:  ",data.userNameInput)
             console.log("data.password:  ",data.password)
+
             
             const dataJwt={
                 username:data.userNameInput,
@@ -42,7 +43,7 @@ function Login({toggleAuthCustomer,toggleAuthUser, toggleAuthAdmin}) {
             // vervolgens wordt de accesToken uit de response  gehaald, waardoor de login functie kan starten in AuthContext
             login(response.data.jwt);
             // toggleLogInSucces(true);
-            // history.push("/home")
+            history.push("/navigation")
 
 
 
@@ -62,26 +63,6 @@ function Login({toggleAuthCustomer,toggleAuthUser, toggleAuthAdmin}) {
 
 
 
-    // function signInCustomer() {
-    //  toggleAuthCustomer(true);
-    //     toggleAuthUser(false);
-    //     toggleAuthAdmin(false);
-    //     history.push('/');
-    // }
-    //
-    // function signInUser() {
-    //     toggleAuthCustomer(false);
-    //     toggleAuthUser(true);
-    //     toggleAuthAdmin(false);
-    //     history.push('/');
-    // }
-    //
-    // function signInAdmin() {
-    //     toggleAuthCustomer(false);
-    //     toggleAuthUser(false);
-    //     toggleAuthAdmin(true);
-    //     history.push('/');
-    // }
 
 
     return (

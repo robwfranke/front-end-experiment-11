@@ -8,12 +8,16 @@ export const AuthContext = createContext({});
 function AuthContextProvider({children}) {
     const history = useHistory();
 
+
+
+
     // state voor de gebruikersdata, object voorgebruikersdata
     const [authState, setAuthState] = useState({
         // hier komt later nog een object bij
         user: null,
         status: 'pending',
         loginStatus: false,
+
     });
 
     //******************************************************************************
@@ -32,66 +36,57 @@ function AuthContextProvider({children}) {
         try {
 
 
-            /*BACK TICK!!!!!*/
+
             const response = await axios.get(`http://localhost:8080/users/name/${userId}`, {
-                //    authorisaton header, object key bevat -, daarom ""
+
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${jwtToken}`, /*BACK TICK!!!!!*/
+                    Authorization: `Bearer ${jwtToken}`,
                 }
             })
             //check wat je binnen krijgt
-
+            console.log("Data binnengehaald!")
             console.log("response:", response)
 
-            console.log("Data binnengehaald!")
-            console.log('AuthContext AA', response);
-            console.log("AuthorityRole 1", response.data.authorities[0].authorityRole)
-            console.log("lengte authorities", response.data.authorities.length)
-            const length = response.data.authorities.length
-            console.log("lengte authorities", length)
-            let role = ""
-            if (length === 3) {
-                role = "ADMIN"
-            }
-            console.log("role: ", role)
 
+
+
+
+            //maak een Array waarin alle authorities in staan
             const testArray = response.data.authorities.map((x) => {
-
                 return x
             });
 
             console.log("testArray:", testArray)
 
 
-            role = ""
+            let roleTest = ""
             // testen of Role = ADMIN
-
             let testFilter = testArray.filter((y) => {
                 return y.authorityRole === "ADMIN"
             })
-
-            if (testFilter.length >= 1) {role = "ADMIN";}
-            console.log("role na filter: ", role)
+            if (testFilter.length >= 1) {
+                roleTest = "ADMIN";
+            }
 
             //testen of Role = COMPANY_USER
-        testFilter = testArray.filter((y) => {
+            testFilter = testArray.filter((y) => {
                 return y.authorityRole === "COMPANY_USER"
             })
-
-            if ((testFilter.length >= 1) && role !== "ADMIN"){role = "COMPANY_USER";}
-            console.log("role na filter: ", role)
+            if ((testFilter.length >= 1) && roleTest !== "ADMIN") {
+                roleTest = "COMPANY_USER";
+            }
 
 
             //testen of Role = CUSTOMER
-           testFilter = testArray.filter((y) => {
+            testFilter = testArray.filter((y) => {
                 return y.authorityRole === "CUSTOMER"
             })
 
-            if ((testFilter.length >= 1) && role !== "ADMIN" && role !=="COMPANY_USER"){role = "CUSTOMER";}
-            console.log("role na filter: ", role)
-
-
+            if ((testFilter.length >= 1) && roleTest !== "ADMIN" && roleTest !== "COMPANY_USER") {
+                roleTest = "CUSTOMER";
+            }
+            console.log("role na filter: ", roleTest)
 
 
             setAuthState({
@@ -99,7 +94,7 @@ function AuthContextProvider({children}) {
                 user: {
                     username: response.data.username,
                     email: response.data.email,
-                    // authorityRole: role,
+                    role: roleTest,
                 },
                 status: 'done',
                 loginStatus: true,
@@ -137,7 +132,7 @@ function AuthContextProvider({children}) {
 
         const token = localStorage.getItem('token');
         if (token !== null && authState.user === null) {
-            // if(token !== null){
+
 
             console.log('AuthContext.js, User gegevens opvragen ER IS EEN TOKEN')
             fetchUserData(token);
@@ -145,15 +140,21 @@ function AuthContextProvider({children}) {
         } else {
 
 
-            //is er een token
+            //is er een token, maar geen user (situatie ontstaat na verlaten webpagina, maar zonder uitloggen!
             //is er GEEN user?
             //haal data dan op (zoals bij login)
 
             //zo nee, dan geen user maar wel de status op 'done' zetten
 
             console.log("geen token")
+
+
+
+
+
+
             setAuthState({
-                userName: null,
+                user: null,
                 status: 'done',
 
             });

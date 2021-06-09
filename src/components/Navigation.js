@@ -1,16 +1,43 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {NavLink, useHistory} from 'react-router-dom';
+import {AuthContext} from "../context/AuthContext";
 
-function Navigation({isAuthCustomer, toggleAuthCustomer, isAuthUser, toggleAuthUser, isAuthAdmin, toggleAuthAdmin}) {
+function Navigation({}) {
     const history = useHistory();
 
-    function signOut() {
-        toggleAuthCustomer(false);
-        toggleAuthUser(false);
-        toggleAuthAdmin(false);
+    // function signOut() {
+    //     toggleAuthCustomer(false);
+    //     toggleAuthUser(false);
+    //     toggleAuthAdmin(false);
+    //
+    //     history.push('/')
+    // }
 
-        history.push('/')
+    // const {role} = useContext(AuthContext);
+    let role = "empty"
+    const alles = useContext(AuthContext);
+    if (alles.user !== null) {
+        role = alles.user.role;
     }
+    console.log("alles: ", alles)
+
+
+    console.log("Navigation, role uit authcontext: ", role)
+
+    let isAuthCustomer = false;
+    let isAuthUser = false;
+    let isAuthAdmin = false;
+
+
+    if (role=="ADMIN"){isAuthAdmin = true}
+    if (role=="COMPANY_USER"){isAuthUser = true}
+    if (role=="Customer"){isAuthCustomer = true}
+
+
+    console.log("NAVIGATIONPAGE")
+    console.log("isAuthCustomer: ", isAuthCustomer)
+    console.log("isAuthUser: ", isAuthUser)
+    console.log("isAuthAdmin: ", isAuthAdmin)
 
 
     return (
@@ -38,9 +65,6 @@ function Navigation({isAuthCustomer, toggleAuthCustomer, isAuthUser, toggleAuthU
                             customer1
                         </NavLink>
                     </li>
-
-
-
 
 
                 </>
@@ -73,11 +97,11 @@ function Navigation({isAuthCustomer, toggleAuthCustomer, isAuthUser, toggleAuthU
                 {((isAuthCustomer === true) || (isAuthUser === true) || (isAuthAdmin === true)) &&
                 <>
 
-                    <li>
-                        <button type="button" onClick={signOut}>
-                            Uitloggen
-                        </button>
-                    </li>
+                    {/*<li>*/}
+                    {/*    <button type="button" onClick={signOut}>*/}
+                    {/*        Uitloggen*/}
+                    {/*    </button>*/}
+                    {/*</li>*/}
                 </>
                 }
 
