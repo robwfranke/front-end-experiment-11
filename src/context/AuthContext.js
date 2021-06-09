@@ -24,13 +24,12 @@ function AuthContextProvider({children}) {
         //Hier gebruiken we de package npm install jwt-deco
         const decoded = jwt_decode(jwtToken);
         const userId = decoded.sub;
-        console.log("decoded.sub: ",decoded.sub);
+        console.log("decoded.sub: ", decoded.sub);
 
 
         console.log('AuthContext jwt DECODED', decoded);
         // gebruikersdata ophalen
         try {
-
 
 
             /*BACK TICK!!!!!*/
@@ -43,11 +42,57 @@ function AuthContextProvider({children}) {
             })
             //check wat je binnen krijgt
 
-            console.log("response:",response)
+            console.log("response:", response)
 
             console.log("Data binnengehaald!")
             console.log('AuthContext AA', response);
             console.log("AuthorityRole 1", response.data.authorities[0].authorityRole)
+            console.log("lengte authorities", response.data.authorities.length)
+            const length = response.data.authorities.length
+            console.log("lengte authorities", length)
+            let role = ""
+            if (length === 3) {
+                role = "ADMIN"
+            }
+            console.log("role: ", role)
+
+            const testArray = response.data.authorities.map((x) => {
+
+                return x
+            });
+
+            console.log("testArray:", testArray)
+
+
+            role = ""
+            // testen of Role = ADMIN
+
+            let testFilter = testArray.filter((y) => {
+                return y.authorityRole === "ADMIN"
+            })
+
+            if (testFilter.length >= 1) {role = "ADMIN";}
+            console.log("role na filter: ", role)
+
+            //testen of Role = COMPANY_USER
+        testFilter = testArray.filter((y) => {
+                return y.authorityRole === "COMPANY_USER"
+            })
+
+            if ((testFilter.length >= 1) && role !== "ADMIN"){role = "COMPANY_USER";}
+            console.log("role na filter: ", role)
+
+
+            //testen of Role = CUSTOMER
+           testFilter = testArray.filter((y) => {
+                return y.authorityRole === "CUSTOMER"
+            })
+
+            if ((testFilter.length >= 1) && role !== "ADMIN" && role !=="COMPANY_USER"){role = "CUSTOMER";}
+            console.log("role na filter: ", role)
+
+
+
 
             setAuthState({
                 ...authState,
@@ -55,7 +100,7 @@ function AuthContextProvider({children}) {
                     username: response.data.username,
                     email: response.data.email,
                     // authorityRole: role,
-                                    },
+                },
                 status: 'done',
                 loginStatus: true,
             });
