@@ -1,31 +1,85 @@
-import React from 'react';
-import {useHistory} from 'react-router-dom';
+import React,{useState,useContext} from 'react';
+
+import {Link, useHistory} from 'react-router-dom';
+import {useForm} from 'react-hook-form';
+import axios from "axios";
+import {AuthContext} from "../context/AuthContext";
+
+
 
 
 function Login({toggleAuthCustomer,toggleAuthUser, toggleAuthAdmin}) {
-    let history = useHistory();
+    const {login} = useContext(AuthContext);
+    const {handleSubmit, register} = useForm();
+    const [logInSucces, toggleLogInSucces] = useState(false)
+    const [error, setError] = useState("");
+    const history = useHistory();
+
+    console.log(",jhzxbccccc");
+
+    async function onSubmit(data){
+        console.log("Login Page, data:  ",data)  ;
+        // console.log("Login Page status login", login)
+
+        try{
+            console.log("data:  ",data)
+            console.log("userNameInput:  ",data.userNameInput)
+            console.log("data.password:  ",data.password)
+            
+            const dataJwt={
+                username:data.userNameInput,
+                password: data.password
+            }
+                
+         
+
+            const response = await axios.post("http://localhost:8080/authenticate", dataJwt);
+            console.log("result jwt =", response)
+            console.log("result.status", response.status)
+            console.log(response.config)
+            console.log("jwt", response.data.jwt)
+            //hier wordt functie login uit AuthContext aangeroepen.
+            // vervolgens wordt de accesToken uit de response  gehaald, waardoor de login functie kan starten in AuthContext
+            login(response.data.jwt);
 
 
-    function signInCustomer() {
-     toggleAuthCustomer(true);
-        toggleAuthUser(false);
-        toggleAuthAdmin(false);
-        history.push('/');
+
+        }catch (error) {
+            // console.log("response status",response);
+            console.log("foutje, user niet aanwezig")
+            setError("Er is iets mis gegaan met het ophalen");
+            console.error(error);
+        }
+
+
+
+
+
     }
 
-    function signInUser() {
-        toggleAuthCustomer(false);
-        toggleAuthUser(true);
-        toggleAuthAdmin(false);
-        history.push('/');
-    }
 
-    function signInAdmin() {
-        toggleAuthCustomer(false);
-        toggleAuthUser(false);
-        toggleAuthAdmin(true);
-        history.push('/');
-    }
+
+
+    // function signInCustomer() {
+    //  toggleAuthCustomer(true);
+    //     toggleAuthUser(false);
+    //     toggleAuthAdmin(false);
+    //     history.push('/');
+    // }
+    //
+    // function signInUser() {
+    //     toggleAuthCustomer(false);
+    //     toggleAuthUser(true);
+    //     toggleAuthAdmin(false);
+    //     history.push('/');
+    // }
+    //
+    // function signInAdmin() {
+    //     toggleAuthCustomer(false);
+    //     toggleAuthUser(false);
+    //     toggleAuthAdmin(true);
+    //     history.push('/');
+    // }
 
 
     return (
@@ -33,24 +87,64 @@ function Login({toggleAuthCustomer,toggleAuthUser, toggleAuthAdmin}) {
         <>
 
             <h1>Login pagina</h1>
-            <section>
-                <button type="button" onClick={signInCustomer}>
-                    Customer Inloggen
-                </button>
-            </section>
 
 
-            <section>
-                <button type="button" onClick={signInUser}>
-                    User Inloggen
-                </button>
-            </section>
 
-            <section>
-                <button type="button" onClick={signInAdmin}>
-                    Admin Inloggen
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <label htmlFor="username-field">
+                    Username:
+                    <input
+                        type="text"
+                        id="username-field"
+                        name="userName"
+                        {...register("userNameInput")}
+                    />
+                </label>
+
+                <label htmlFor="password-field">
+                    Wachtwoord:
+                    <input
+                        type="password"
+                        id="password-field"
+                        name="password"
+                        {...register("password")}
+                    />
+                </label>
+                <button
+                    type="submit"
+                    className="form-button"
+                >
+                    Inloggen
                 </button>
-            </section>
+            </form>
+
+
+
+
+
+
+
+
+
+
+            {/*<section>*/}
+            {/*    <button type="button" onClick={signInCustomer}>*/}
+            {/*        Customer Inloggen*/}
+            {/*    </button>*/}
+            {/*</section>*/}
+
+
+            {/*<section>*/}
+            {/*    <button type="button" onClick={signInUser}>*/}
+            {/*        User Inloggen*/}
+            {/*    </button>*/}
+            {/*</section>*/}
+
+            {/*<section>*/}
+            {/*    <button type="button" onClick={signInAdmin}>*/}
+            {/*        Admin Inloggen*/}
+            {/*    </button>*/}
+            {/*</section>*/}
         </>
     );
 }
