@@ -1,4 +1,4 @@
-import React,{useState,useContext} from 'react';
+import React,{useState,useContext,useEffect} from 'react';
 
 import {Link, useHistory} from 'react-router-dom';
 import {useForm} from 'react-hook-form';
@@ -13,8 +13,8 @@ function Login() {
     const {handleSubmit, register} = useForm();
     const [logInSucces, toggleLogInSucces] = useState(false)
     const [error, setError] = useState("");
+    const [refresh,setRefresh]=useState(false)
     const history = useHistory();
-
 
 
     async function onSubmit(data){

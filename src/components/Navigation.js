@@ -20,27 +20,8 @@ function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
     function signOut() {
 
         localStorage.clear();
-        isAuthAdmin = false;
-        isAuthUser = false;
-        isAuthCustomer = false;
-
-        alles.role="empty"
-        console.log(alles.role)
-
-
-        console.log("isAuthAdmin: ",isAuthAdmin)
-        // setAuthState({
-        //     ...authState,
-        //     user: {
-        //         username: response.data.username,
-        //         email: response.data.email,
-        //         role: roleTest,
-        //     },
-        //     status: 'done',
-        //     loginStatus: true,
-        // });
-       history.push("/navigation")
-
+        history.push("/login")
+        window.location.reload();
 
     }
 
