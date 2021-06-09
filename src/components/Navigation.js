@@ -23,6 +23,8 @@ function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
         isAuthAdmin = false;
         isAuthUser = false;
         isAuthCustomer = false;
+
+        alles.role="empty"
         console.log("isAuthAdmin: ",isAuthAdmin)
         // setAuthState({
         //     ...authState,
@@ -35,6 +37,7 @@ function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
         //     loginStatus: true,
         // });
        history.push("/login")
+
 
     }
 

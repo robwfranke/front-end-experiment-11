@@ -186,19 +186,24 @@ function AuthContextProvider({children}) {
 
     //uitlogfunctie
 
-    function logoutFunction() {
-
-        //leeghalen van de localstorage (localStorage.clear())
-        // en de user in de context weer op nul zetten  : les 10 02:48:00
-
-        // localStorage.clear();
+    // function logoutFunction() {
+    //     localStorage.clear();
+        // isAuthAdmin = false;
+        // isAuthUser = false;
+        // isAuthCustomer = false;
+        // console.log("isAuthAdmin: ",isAuthAdmin)
         // setAuthState({
-        //     user: null,
+        //     ...authState,
+        //     user: {
+        //         username: response.data.username,
+        //         email: response.data.email,
+        //         role: roleTest,
+        //     },
         //     status: 'done',
+        //     loginStatus: true,
         // });
-        //
-        // console.log('Logout!')
-    }
+    //     history.push("/login")
+    // }
 
 
     //omdat authState een object is,
@@ -208,7 +213,7 @@ function AuthContextProvider({children}) {
     const data = {
         ...authState,
         login: loginFunction,
-        logout: logoutFunction,
+        // logout: logoutFunction,
     }
 
 
