@@ -17,7 +17,6 @@ function Login() {
 
     async function onSubmit(data){
         console.log("Login Page, data:  ",data)  ;
-        // console.log("Login Page status login", login)
 
         try{
             console.log("data:  ",data)

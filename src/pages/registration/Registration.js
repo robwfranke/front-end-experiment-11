@@ -19,9 +19,32 @@ function Registration() {
         console.log("data ", data)
 
         /*hoofdletters en verwijderen spaties*/
+        data.postalcode = data.postalcode.toUpperCase();
+        data.postalcode = data.postalcode.replace(/\s+/g, '');
 
-        // data.postalcode = data.postalcode.toUpperCase();
-        // data.postalcode = data.postalcode.replace(/\s+/g, '')
+        //strip alle niet nummerieke karakters.
+        data.telnumber=data.telnumber.replace(/[^\d]/g, '');
+
+
+
+
+        try{
+
+
+            const response = await axios.post("http://localhost:8080/createCustomerWithAddress", data);
+            console.log("respons =", response)
+
+        }catch (error){
+            console.log("foutje in registratie")
+
+            console.error(error);
+
+        }
+
+history.push("/login")
+
+
+
 
     }
 
@@ -88,6 +111,25 @@ function Registration() {
                     </label>
 
 
+                    <label htmlFor="city-field">
+                        Stad:
+                        <input
+                            type="text"
+                            placeholder="min 3 karakters"
+                            {...register("city", {
+                                required: true,
+                                minLength: {
+                                    value: 3,
+                                }
+
+                            })}
+                        />
+                        {errors.city && (
+                            <span className={styles["alert"]}>check uw stad!</span>
+                        )}
+                    </label>
+
+
                     <label htmlFor="street-field">
                         Straatnaam en nummer:
                         <input
@@ -128,7 +170,7 @@ function Registration() {
                         Telefoonnummer:
                         <input
                             type="text"
-                            placeholder="0123456789"
+                            placeholder="012-3456789"
                             {...register("telnumber", {
                                 required: true,
                                 pattern: /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/,
@@ -146,15 +188,16 @@ function Registration() {
 
 
 
-                </fieldset>
+
 
 
                 <button
                     type="submit"
-                    className="form-button"
+                    className={styles["submit-button"]}
                 >
                     Inloggen
                 </button>
+                </fieldset>
             </form>
 
         </>
