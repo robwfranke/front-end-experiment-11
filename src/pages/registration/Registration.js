@@ -7,13 +7,16 @@ import axios from "axios";
 
 
 function Registration() {
-    const {register, handleSubmit, formState: {errors}} = useForm(
-
-    );
+    const {register, handleSubmit, formState: {errors}} = useForm();
     const history = useHistory();
+    const [error,setError]=useState(false)
+    const [registrated,setRegistrated]=useState(false);
 
 
     async function onSubmit(data) {
+
+        setError(false);
+        setRegistrated(false);
 
 
         console.log("data ", data)
@@ -33,19 +36,24 @@ function Registration() {
 
             const response = await axios.post("http://localhost:8080/createCustomerWithAddress", data);
             console.log("respons =", response)
+            setRegistrated(true);
+
+            setTimeout(() => {
+                history.push("/login")
+            }, 4000);
+
+
+
+
+
+
 
         }catch (error){
             console.log("foutje in registratie")
-
+           setError(true)
             console.error(error);
 
         }
-
-history.push("/login")
-
-
-
-
     }
 
 
@@ -53,13 +61,13 @@ history.push("/login")
 
         <>
 
-            <h3>Registratie pagina nieuwe klant</h3>
 
 
             <form onSubmit={handleSubmit(onSubmit)}>
 
 
                 <fieldset className={styles["registration-container"]}>
+                    <h3>Registratie pagina nieuwe klant</h3>
 
 
                     <label htmlFor="username-field">
@@ -182,22 +190,32 @@ history.push("/login")
                     </label>
 
 
-
-
-
-
-
-
-
-
-
                 <button
                     type="submit"
                     className={styles["submit-button"]}
                 >
                     Inloggen
                 </button>
-                </fieldset>
+
+                {error &&
+                    <div className={styles["error-axios"]}>
+                <p> er is wat misgegaan met de registratie!!</p>
+                <p> probeer het opnieuw of ga naar login</p>
+                    </div>
+                }
+
+                    {registrated &&
+                    <div className={styles["registrated"]}>
+                        <p> Het registreren is gelukt!!</p>
+                        <p> u wordt doorgestuurd naar de inlogpagina</p>
+                    </div>
+                    }
+
+            </fieldset>
+
+
+
+
             </form>
 
         </>
