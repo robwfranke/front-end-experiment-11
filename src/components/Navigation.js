@@ -17,13 +17,7 @@ function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
     console.log("isAuthAdmin: ", isAuthAdmin)
 
 
-    function signOut() {
 
-        localStorage.clear();
-        history.push("/login")
-        window.location.reload();
-
-    }
 
 
     return (
@@ -84,9 +78,14 @@ function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
                 <>
 
                     <li>
-                        <button type="button" onClick={signOut}>
+                        <NavLink to="/logout">
                             Uitloggen
-                        </button>
+                        </NavLink>
+
+
+                        {/*<button type="button" onClick={signOut}>*/}
+                        {/*    Uitloggen*/}
+                        {/*</button>*/}
                     </li>
                 </>
                 }

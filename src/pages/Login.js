@@ -101,33 +101,6 @@ function Login() {
                 </button>
             </form>
 
-
-
-
-
-
-
-
-
-
-            {/*<section>*/}
-            {/*    <button type="button" onClick={signInCustomer}>*/}
-            {/*        Customer Inloggen*/}
-            {/*    </button>*/}
-            {/*</section>*/}
-
-
-            {/*<section>*/}
-            {/*    <button type="button" onClick={signInUser}>*/}
-            {/*        User Inloggen*/}
-            {/*    </button>*/}
-            {/*</section>*/}
-
-            {/*<section>*/}
-            {/*    <button type="button" onClick={signInAdmin}>*/}
-            {/*        Admin Inloggen*/}
-            {/*    </button>*/}
-            {/*</section>*/}
         </>
     );
 }
