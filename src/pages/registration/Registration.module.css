@@ -1,0 +1,22 @@
+.registration-container{
+    width: 50%;
+    box-sizing: border-box;
+    flex-direction: column;
+    color: black;
+    background-color: coral;
+    display: flex;
+    justify-content:left;
+    height: auto;
+    align-items: flex-end;
+}
+
+
+
+.alert{
+    background-color: red;
+}
+
+.id{
+
+   background-color: magenta;
+}

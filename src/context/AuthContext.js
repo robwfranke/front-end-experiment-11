@@ -184,27 +184,6 @@ function AuthContextProvider({children}) {
     }
 
 
-    //uitlogfunctie
-
-    // function logoutFunction() {
-    //     localStorage.clear();
-        // isAuthAdmin = false;
-        // isAuthUser = false;
-        // isAuthCustomer = false;
-        // console.log("isAuthAdmin: ",isAuthAdmin)
-        // setAuthState({
-        //     ...authState,
-        //     user: {
-        //         username: response.data.username,
-        //         email: response.data.email,
-        //         role: roleTest,
-        //     },
-        //     status: 'done',
-        //     loginStatus: true,
-        // });
-    //     history.push("/login")
-    // }
-
 
     //omdat authState een object is,
     // en we nog steeds gebruik willen maken van de automatische state updates zullen we de authState "spreadden"

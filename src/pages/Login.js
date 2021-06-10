@@ -11,9 +11,7 @@ import {AuthContext} from "../context/AuthContext";
 function Login() {
     const {login} = useContext(AuthContext);
     const {handleSubmit, register} = useForm();
-    const [logInSucces, toggleLogInSucces] = useState(false)
     const [error, setError] = useState("");
-    const [refresh,setRefresh]=useState(false)
     const history = useHistory();
 
 
@@ -100,6 +98,7 @@ function Login() {
                     Inloggen
                 </button>
             </form>
+            <p>Heb je nog geen account? <Link to="/registration">Registreer</Link> je dan eerst.</p>
 
         </>
     );

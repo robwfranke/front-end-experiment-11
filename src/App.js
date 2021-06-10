@@ -5,10 +5,13 @@ import Overview from './pages/Overview';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import BlogPost from './pages/BlogPost';
-import Navigation from './components/Navigation';
+import Navigation from './components/navigation/Navigation';
 import Admin1 from "./pages/Admin1";
 import Customer1 from "./pages/Customer1";
 import Logout from "./pages/Logout";
+import Registration from "./pages/registration/Registration";
+
+
 import {AuthContext} from "./context/AuthContext";
 
 
@@ -17,7 +20,8 @@ function PrivateRoute({children, isAuthCustomer, isAuthUser, isAuthAdmin, ...res
     // al die andere props die je verder nog ontvangt, zet die ook allemaal maar op <Route>
     return (
         <Route {...rest}>
-            {(isAuthUser || isAuthAdmin || isAuthCustomer) ? children : <Redirect to="/login"/>}
+            {(isAuthUser || isAuthAdmin || isAuthCustomer) ? children : <Redirect to="/home"/>}
+
         </Route>
     )
 }
@@ -68,6 +72,9 @@ function App() {
                     <Logout/>
                 </Route>
 
+                <Route path="/registration">
+                    <Registration/>
+                </Route>
 
                 <PrivateRoute exact path="/customer1" isAuthCustomer={isAuthCustomer}>
                     <Customer1/>
