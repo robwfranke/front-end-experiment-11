@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import axios from "axios";
+import {AuthContext} from "../../../src/context/AuthContext";
 
-function Customer1() {
+function Customer() {
 
     const [orders, setOrders] = useState([]);
     const [error, setError] = useState(false);
+    const {user}=useContext(AuthContext);
+
+
     const token = localStorage.getItem('token');
 
 
@@ -17,7 +21,7 @@ function Customer1() {
     async function fetchData(jwtToken) {
 
         try {
-            console.log("Customer1Page")
+            console.log("Customer Page")
 
             const response = await axios.get(`http://localhost:8080/orders/inlog`, {
 
@@ -27,7 +31,7 @@ function Customer1() {
                 }
             })
 
-            console.log("response Customer1", response)
+            console.log("response CustomerOrder", response)
             // ?maak een array waar alle orders in staan
             // const testArray= response.data.
             console.log(response.data.length)
@@ -56,7 +60,7 @@ function Customer1() {
 
     return (
         <section>
-            <h3>Customer1 pagina</h3>
+            <h3>Customer pagina {user.username}</h3>
             <button onClick={getOrders}
             >
                 Haal orders op
@@ -64,23 +68,23 @@ function Customer1() {
 
             <div>
 
-<ul>
-                {orders.map((order) => {
-                    return <li key={order.id}>
-                        <span>ordernummer:</span> {order.ordername} <span>Text: {order.description}</span>
-<ul>
-                        {order.items.map((item) => {
-                            return <li key={item.id}><span>itemname: </span>{item.itemname}
-                            </li>
+                <ul>
+                    {orders.map((order) => {
+                        return <li key={order.id}>
+                            <span>ordernummer:</span> {order.ordername} <span>Text: {order.description}</span>
+                            {/* **************************************************************** */}
+                            {/*per order mappen over de items (altijd minimaal 1 aanwezig*/}
+                            <ul>
+                                {order.items.map((item) => {
+                                    return <li key={item.id}><span>itemname: </span>{item.itemname}
+                                    </li>
+                                })}
+                            </ul>
+                            {/* **************************************************************** */}
+                        </li>
+                    })}
 
-
-                        })}
-</ul>
-
-                    </li>
-                })}
-
-</ul>
+                </ul>
             </div>
 
 
@@ -88,4 +92,4 @@ function Customer1() {
     );
 }
 
-export default Customer1;
+export default Customer;

@@ -7,7 +7,7 @@ import Login from './pages/Login';
 import BlogPost from './pages/BlogPost';
 import Navigation from './components/navigation/Navigation';
 import Admin1 from "./pages/Admin1";
-import Customer1 from "./pages/Customer1";
+import Customer from "./pages/Customer/Customer";
 import Logout from "./pages/Logout";
 import Registration from "./pages/registration/Registration";
 
@@ -77,7 +77,7 @@ function App() {
                 </Route>
 
                 <PrivateRoute exact path="/customer1" isAuthCustomer={isAuthCustomer}>
-                    <Customer1/>
+                    <Customer/>
                 </PrivateRoute>
 
                 <PrivateRoute exact path="/blogposts" isAuthUser={isAuthUser}>

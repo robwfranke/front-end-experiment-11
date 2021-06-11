@@ -2,7 +2,7 @@ import React, {useContext, useState} from 'react';
 import {NavLink, Route, useHistory} from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext";
 import styles from "./Navigation.module.css";
-import Customer1 from "../../pages/Customer1"
+import Customer from "../../pages/Customer/Customer"
 
 
 function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
@@ -40,8 +40,8 @@ function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
                     {(isAuthCustomer === true) && (isAuthUser === false) && (isAuthAdmin === false) &&
                     <>
                         <li>
-                            <NavLink to="/customer1"  activeClassName={styles["active-link"]}>
-                                customer1
+                            <NavLink to="/customer1"  activeClassName={styles["active-link"]} >
+                                customer
                             </NavLink>
                         </li>
 
@@ -66,7 +66,8 @@ function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
                     <>
 
                         <li>
-                            <NavLink to="/admin1"  activeClassName={styles["active-link"]}>
+                            <NavLink
+                                to="/admin1"  activeClassName={styles["active-link"]}>
                                 admin1
                             </NavLink>
                         </li>
@@ -93,7 +94,7 @@ function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
 
             {/*  dit uitproberen*/}
 
-            {/*<Customer1/>*/}
+            {/*<CustomerOrder/>*/}
 
 
         </nav>
