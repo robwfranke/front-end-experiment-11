@@ -76,9 +76,12 @@ function App() {
                     <Registration/>
                 </Route>
 
-                <PrivateRoute exact path="/customer1" isAuthCustomer={isAuthCustomer}>
+                <PrivateRoute exact path="/customer" isAuthCustomer={isAuthCustomer}>
                     <Customer/>
                 </PrivateRoute>
+
+
+
 
                 <PrivateRoute exact path="/blogposts" isAuthUser={isAuthUser}>
                     <Overview/>

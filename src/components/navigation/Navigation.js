@@ -40,7 +40,7 @@ function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
                     {(isAuthCustomer === true) && (isAuthUser === false) && (isAuthAdmin === false) &&
                     <>
                         <li>
-                            <NavLink to="/customer1"  activeClassName={styles["active-link"]} >
+                            <NavLink to="/customer"  activeClassName={styles["active-link"]} >
                                 customer
                             </NavLink>
                         </li>

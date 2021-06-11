@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react';
 import axios from "axios";
 import {AuthContext} from "../../../src/context/AuthContext";
+import {NavLink} from "react-router-dom";
 
 function Customer() {
 
@@ -71,7 +72,16 @@ function Customer() {
                 <ul>
                     {orders.map((order) => {
                         return <li key={order.id}>
-                            <span>ordernummer:</span> {order.ordername} <span>Text: {order.description}</span>
+                            <NavLink
+                                to={`/customerOrder/${order.id }`}
+                            >
+                                <span>ordernummer:</span> {order.ordername} <span>Text: {order.description}</span>
+
+
+                            </NavLink>
+
+
+
                             {/* **************************************************************** */}
                             {/*per order mappen over de items (altijd minimaal 1 aanwezig*/}
                             <ul>
