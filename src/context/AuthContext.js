@@ -99,6 +99,8 @@ function AuthContextProvider({children}) {
                 status: 'done',
                 loginStatus: true,
                 role: roleTest,
+
+
             });
             console.log("na setAuthState")
             console.log("AuthState na inloggen", authState)
