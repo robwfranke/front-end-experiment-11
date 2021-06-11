@@ -17,6 +17,7 @@ function AuthContextProvider({children}) {
         user: null,
         status: 'pending',
         loginStatus: false,
+        role:"",
 
     });
 
