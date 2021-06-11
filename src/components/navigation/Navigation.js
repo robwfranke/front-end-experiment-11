@@ -2,6 +2,7 @@ import React, {useContext, useState} from 'react';
 import {NavLink, Route, useHistory} from 'react-router-dom';
 import {AuthContext} from "../../context/AuthContext";
 import styles from "./Navigation.module.css";
+import Customer1 from "../../pages/Customer1"
 
 
 function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
@@ -89,6 +90,10 @@ function Navigation({isAuthUser, isAuthCustomer, isAuthAdmin}) {
                 </ul>
 
             </div>
+
+            {/*  dit uitproberen*/}
+
+            {/*<Customer1/>*/}
 
 
         </nav>

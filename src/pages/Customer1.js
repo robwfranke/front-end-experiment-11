@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import axios from "axios";
-import {NavLink} from "react-router-dom";
 
 function Customer1() {
 
-    const [orders, setOrders]=useState();
+    const [orders, setOrders] = useState([]);
+    const [error, setError] = useState(false);
     const token = localStorage.getItem('token');
 
 
-function test1(){
-    console.log("test1")
-    fetchData(token)
+    function getOrders() {
+        console.log("getOrders")
+        fetchData(token)
     }
 
 
-    async function fetchData(jwtToken){
+    async function fetchData(jwtToken) {
 
-        try{
+        try {
             console.log("Customer1Page")
 
             const response = await axios.get(`http://localhost:8080/orders/inlog`, {
@@ -31,14 +31,22 @@ function test1(){
             // ?maak een array waar alle orders in staan
             // const testArray= response.data.
             console.log(response.data.length)
-const piet=response.data
-            console.log("piet: ",piet)
 
-            const jaap =response.data[0].ordername;
-            console.log("jaap: ",jaap)
+            // if (response.data.length=0){
+            //
+            //     console.log("lengte =0")
+            //     setError(true)
+            // }
+
+            const piet = response.data
+            console.log("piet: ", piet)
+
+            const jaap = response.data[0].ordername;
+            console.log("jaap: ", jaap)
+            setOrders(piet)
 
 
-        }catch(e){
+        } catch (e) {
 
 
         }
@@ -46,28 +54,38 @@ const piet=response.data
     }
 
 
+    return (
+        <section>
+            <h3>Customer1 pagina</h3>
+            <button onClick={getOrders}
+            >
+                Haal orders op
+            </button>
+
+            <div>
+
+<ul>
+                {orders.map((order) => {
+                    return <li key={order.id}>
+                        <span>ordernummer:</span> {order.ordername} <span>Text: {order.description}</span>
+<ul>
+                        {order.items.map((item) => {
+                            return <li key={item.id}><span>itemname: </span>{item.itemname}
+                            </li>
 
 
-  return (
-    <section>
-      <h1>Customer1 pagina</h1>
-      <h2>Customer1</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque doloremque officiis quae tempore voluptatum! Harum mollitia necessitatibus, officiis porro quia quidem sit. Accusamus adipisci aliquid autem blanditiis, commodi culpa dignissimos dolorem eaque earum fugiat ipsum iure laboriosam odit perspiciatis provident quam quasi qui reprehenderit ullam vero. Consequatur ipsum magnam maiores modi nam praesentium quia? Adipisci corporis et illum minus, porro quae recusandae. Ab accusantium architecto autem deleniti dolor dolorem ea earum, error esse laborum minus molestias nam neque nisi numquam porro quasi quidem quis quo repellendus sit unde voluptas. Animi consequuntur dicta error expedita iusto officiis perspiciatis reiciendis ut voluptatum.</p>
+                        })}
+</ul>
 
-        <div>
+                    </li>
+                })}
 
-
-
-        </div>
-
-        <button onClick={test1}
-        >
-            hallo
-        </button>
+</ul>
+            </div>
 
 
-    </section>
-  );
+        </section>
+    );
 }
 
 export default Customer1;
